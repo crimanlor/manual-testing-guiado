@@ -133,7 +133,15 @@ const coupons = [
  * @returns {bool} true | false 
  */
 const isValidCoupon = (code) => {
-    // TODO
+    // Existe algún cupón de código "code", que no haya sido canjeado y que la fecha actual sea inferior a la de expiración
+    return coupons.some(c => c.code == code && !c.redeemed && new Date() <= new Date(c.expirationDate))
 }
 
 console.log("Cupón que existe, no está caducado y es válido. Debería devolver true", isValidCoupon('HOTEL2024'));
+
+// Pruebas iniciales
+// console.log("Cupón que existe, no está caducado y es válido. Debería devolver true", isValidCoupon('HOTEL2024'));
+// console.log("Cupón que existe (aunque está al final de la base datos), no está caducado y es válido. Debería devolver true", isValidCoupon("DIVING2024"));
+// console.log("Cupón que no existe en la base de datos. Debería devolver false", isValidCoupon('MELOHEINVENTADO'));
+// console.log("El cupón ya ha sido canjeado. Debería devolver false", isValidCoupon('MUSIC2024'));
+// console.log("El cupón está caducado. Debería devolver false", isValidCoupon('ESCAPEROOM2024'));
